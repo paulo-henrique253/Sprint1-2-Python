@@ -1,15 +1,20 @@
 import os
 
+#DECLARACAO DE CONSTANTES
 
+#Emissao de veiculkos
 EMISSAO_BICICLETA = 0
 EMISSAO_CARRO = 0.2
 EMISSAO_METRO = 0.005
 EMISSAO_MOTO = 0.08
 EMISSAO_ONIBUS = 0.04 #1.30kg que o onobus emite dividio pela média de passageiros (30 pessoas)
 EMISSAO_TREM = 0.005
+
+
+#Conversao de pontos para creditos
 CREDITOS_POR_PONTO = 0.009
 
-
+#delcaracao dos atributos do usuário
 pontos_acumulados = 0
 creditos_acumulados = 0
 
@@ -22,11 +27,21 @@ missoes = [
     ["Faça 6 viagens de tranporte publico em 7 dias", 67]
 ]
 
+#verificar se uma string é um float valido
+def is_float(texto : str):
+    pontos = 0
+    for char in texto:
+        if char == '.': pontos +=1
+        elif not char.isdigit(): return False
+    if pontos <= 1:
+        return True  
+    else: 
+        return False
 
 
 
-total_carbono_emitido = 0
 
+# verificar se o veiculo é um dos cadastrados
 def veiculo_existe(veiculo : str):
     match veiculo.lower().strip():
         case "carro": return True
@@ -37,7 +52,7 @@ def veiculo_existe(veiculo : str):
         case "trem": return True
         case _: return False
         
-
+# obter a emissao de um veiculo
 def obter_emissao(veiculo : str):
     match veiculo.lower().strip():
         case "carro": return EMISSAO_CARRO
@@ -48,7 +63,7 @@ def obter_emissao(veiculo : str):
         case "trem": return EMISSAO_TREM
 
 
-
+# Comparar a emissao de um veiculo com outro 
 def comparar_emissao(veiculo1 : str, veiculo2 : str):
     emissao1 = obter_emissao(veiculo1)
     emissao2 = obter_emissao(veiculo2)
@@ -56,6 +71,8 @@ def comparar_emissao(veiculo1 : str, veiculo2 : str):
         return False
     return emissao1/emissao2
 
+
+# Verificar qual é a menor emissao entre dois veiculos
 def menor_emissao(veiculo1 : str, veiculo2 : str):
     emissao1 = obter_emissao(veiculo1)
     emissao2 = obter_emissao(veiculo2)
@@ -63,9 +80,15 @@ def menor_emissao(veiculo1 : str, veiculo2 : str):
         return veiculo1
     return veiculo2
 
+
+
+# Retorna a emissao total que um veiculo faria ao andar determinada distancia em km
 def calcular_viagem(veiculo : str, km : float):
     emissao = obter_emissao(veiculo)
     return emissao * km
+
+
+# SUBALGORITMOS CHAMADOS NO MENU
 
 
 def caso_ver_pontos():
@@ -108,8 +131,10 @@ def caso_calcular_viagem():
     veiculo = input("insira um veículo (sem acentos): ")
     while not veiculo_existe(veiculo):
         veiculo = input("Veiculo invalido!!\nInsira um veículo (sem acentos): ")
-    km = float(input("Quantos quilometros deseja calcular: "))
-    emissao = obter_emissao(veiculo) * km
+    km = input("Quantos quilometros deseja calcular: ")
+    while (not is_float(km)):
+        km = input("insira uma quilometragem válida: ")
+    emissao = obter_emissao(veiculo) * float(km)
 
     print(f"{veiculo} emitirá {emissao:.1f}KG de carbono em {km}KM")
     input()
@@ -172,7 +197,7 @@ nome = input("Nome: ")
 os.system("cls")
 
 escolha = -1
-while not escolha == 0:
+while escolha != 0:
     print(f"Ola {nome}, o que deseja fazer?")
 
     print("1 - Ver pontos e creditos")
