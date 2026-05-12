@@ -136,21 +136,35 @@ def caso_ver_missao():
 
 
 def caso_completar_missao():
+    global pontos_acumulados
     print("Qual missao gostaria de realizou?")
     for i in range(len(missoes)):
-        print(f"{i+1} - {missoes[i][0]}. Pontos: {missoes[0][1]}")
-    escolha = input("Input: ")
-    if escolha >= 1 and escolha <= len(missoes)-1:
-        pass
+        print(f"{i+1} - {missoes[i][0]}. Pontos: {missoes[i][1]}")
+    escolha = int(input("Input: "))
+    if escolha >= 1 and escolha <= len(missoes):
+
+        pontos_acumulados += missoes[escolha-1][1]
+        print(f"Missao Concluida.\nAgora voce tem {pontos_acumulados} pontos")
+    else:
+        print("Missao invalida")
+    input()
 
 
 
 
 def caso_converter_pontos():
+    global pontos_acumulados
+    global creditos_acumulados
     pontos = input(f"Voce tem {pontos_acumulados} pontos. Quantos pontos gostaria de converter: ")
     while(not pontos.isnumeric and pontos > pontos_acumulados):
         print(f"insira um valor inteiro menor que {pontos_acumulados}: ")
         pontos = input("quantos pontos gostaria de converter: ")
+    pontos_acumulados -= int(pontos)
+    creditos_acumulados += float(pontos) * CREDITOS_POR_PONTO
+    print(f"isso equivale a {float(pontos) * CREDITOS_POR_PONTO} creditos\nSeu total agora é {creditos_acumulados}")
+    input()
+    
+    
 
 
 os.system("cls")
@@ -184,6 +198,8 @@ while not escolha == 0:
         case '4': caso_verificar_emissao()
 
         case '5': caso_ver_missao()
+
+        case '6': caso_completar_missao()
 
         case '7': caso_converter_pontos()
 
