@@ -182,13 +182,18 @@ def caso_completar_missao():
     print("⌞ Qual missao gostaria de registrar? ⌝")
     for i in range(len(missoes)):
         print(f"\n⌞ ⋮ » {i+1} - {missoes[i][0]}. Pontos: {missoes[i][1]}⌝")
-    escolha = int(input(".ᐟ.ᐟ ─── Escolha: "))
-    if escolha >= 1 and escolha <= len(missoes):
+    escolha = input(".ᐟ.ᐟ ─── Escolha: ")
+    while True:
+        if escolha.isnumeric():
+            escolha = int(escolha)
+            if escolha >= 1 and escolha <= len(missoes):
+                break
+        print("escolha invalida !!!")
+        escolha = input(".ᐟ.ᐟ ─── Escolha: ")
 
-        pontos_acumulados += missoes[escolha-1][1]
-        print(f"\n⋮ » ⌞ Missao Concluida.\nAgora voce tem {pontos_acumulados} pontos ⌝")
-    else:
-        print("▸ Missão invalida")
+    pontos_acumulados += missoes[escolha-1][1]
+    print(f"\n⋮ » ⌞ Missao Concluida.\nAgora voce tem {pontos_acumulados} pontos ⌝")
+
 
     print("\n » Insira qualquer tecla para continuar.")
     input()
