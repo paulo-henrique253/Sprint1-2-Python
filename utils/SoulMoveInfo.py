@@ -18,3 +18,7 @@ MISSOES = [
     ["DIÁRIA: Assista 5 anúncios", 50],
     ["SEMANAL: Use o transporte publico 5 dias seguidos", 350]
 ]
+#delcaracao dos dados do usuário
+class Dados:
+    pontos_acumulados = 0
+    creditos_acumulados = 0

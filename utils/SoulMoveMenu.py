@@ -4,8 +4,8 @@ import utils.SoulMoveInfo as info
 import os
 
 # Ver pontos e creditos acumulados
-def caso_ver_pontos(pontos_acumulados : int, creditos_acumulados : float) -> None:
-    print(f"⌞ .✦ ݁˖ Pontos: {pontos_acumulados} ⌝\n⌞ ⊹ ࣪ ˖ Creditos: R${creditos_acumulados} ⌝")
+def caso_ver_pontos() -> None:
+    print(f"⌞ .✦ ݁˖ Pontos: {info.Dados.pontos_acumulados} ⌝\n⌞ ⊹ ࣪ ˖ Creditos: R${(info.Dados.creditos_acumulados):.2f} ⌝")
     print("\n » Insira qualquer tecla para continuar.")
     input()
 
@@ -108,7 +108,7 @@ def caso_ver_missao() -> None:
     input()
 
 # Adiciona os pontos da missao aos pontos acumulados
-def caso_completar_missao(pontos_acumulados: int) -> int:
+def caso_completar_missao() -> None:
 
     print("⌞ Qual missao gostaria de registrar? ⌝")
 
@@ -131,43 +131,41 @@ def caso_completar_missao(pontos_acumulados: int) -> int:
         escolha = input(".ᐟ.ᐟ ─── Escolha: ")
 
     # Adiciona os pontos da missao nos pontos do usuário
-    pontos_acumulados += info.MISSOES[escolha-1][1]
-    print(f"\n⋮ » ⌞ Missao Concluida.\nAgora voce tem {pontos_acumulados} pontos ⌝")
+    info.Dados.pontos_acumulados += info.MISSOES[escolha-1][1]
+    print(f"\n⋮ » ⌞ Missao Concluida.\nAgora voce tem {info.Dados.pontos_acumulados} pontos ⌝")
 
 
     print("\n » Insira qualquer tecla para continuar.")
     input()
 
     #Retorna os pontos para que possam ser colocados no programa principal
-    return pontos_acumulados
 
 
 
 # Converte quantos pontos quiser em creditos
-def caso_converter_pontos(pontos_acumulados : int, creditos_acumulados : float) -> tuple[int, float]:
+def caso_converter_pontos() -> None:
 
-    pontos = input(f"⋮ » Voce tem {pontos_acumulados} pontos. Quantos pontos gostaria de converter: ")
+    pontos = input(f"⋮ » Voce tem {info.Dados.pontos_acumulados} pontos. Quantos pontos gostaria de converter: ")
     
     #forca o usuário a digitar um numero menor que a quantidade de pontos atual
     #Se pontos for numerico, verifica se é menor que os pontos acumulados e se sim atribui True, se não  for numerico nao checa e atribui falso
-    valido = True if pontos.isnumeric() and int(pontos) <= pontos_acumulados else False
+    valido = True if pontos.isnumeric() and int(pontos) <= info.Dados.pontos_acumulados else False
     while(not valido): 
 
-        print(f"▸ Insira um valor inteiro menor que {pontos_acumulados}: ")
+        print(f"▸ Insira um valor inteiro menor que {info.Dados.pontos_acumulados}: ")
         pontos = input("⋮ » Quantos pontos gostaria de converter: ")
 
-        valido = True if pontos.isnumeric() and int(pontos) <= pontos_acumulados else False
+        valido = True if pontos.isnumeric() and int(pontos) <= info.Dados.pontos_acumulados else False
 
     #Muda as variavies temporárias
-    pontos_acumulados -= int(pontos)
-    creditos_acumulados += float(pontos) * info.CREDITOS_POR_PONTO
+    info.Dados.pontos_acumulados -= int(pontos)
+    info.Dados.creditos_acumulados += float(pontos) * info.CREDITOS_POR_PONTO
 
-    print(f"▸ Isso equivale a {float(pontos) * info.CREDITOS_POR_PONTO:.2f} creditos\n ⟢ ⌞ Você tem R${creditos_acumulados:.2f} ⌝ de créditos.")
+    print(f"▸ Isso equivale a {float(pontos) * info.CREDITOS_POR_PONTO:.2f} creditos\n ⟢ ⌞ Você tem R${(info.Dados.creditos_acumulados):.2f} ⌝ de créditos.")
 
     print("\n » Insira qualquer tecla para continuar.")
     input()
     # Retorna ambos os valores para que possam ser tratados no codigo principal
-    return [pontos_acumulados, creditos_acumulados]
     
     
 

@@ -3,12 +3,6 @@ import utils.SoulMoveInfo as info
 import utils.SoulMoveMenu as menu
 #DECLARACAO DE CONSTANTES
 
-# Analisa se a nota 1 é um número e é válida: True se for False se não for
-
-#delcaracao dos atributos do usuário
-pontos_acumulados = 0
-creditos_acumulados = 0
-
 
 os.system("cls")
 nome = input(".ᐟ.ᐟ ─── Insira seu nome: ")
@@ -34,7 +28,7 @@ while escolha != 0:
 
     match escolha:
         case '1': 
-            menu.caso_ver_pontos(pontos_acumulados, creditos_acumulados)
+            menu.caso_ver_pontos()
             print("\n")
 
         case '2': 
@@ -54,13 +48,12 @@ while escolha != 0:
             print("\n")
 
         case '6': 
-            pontos_acumulados = menu.caso_completar_missao(pontos_acumulados)
+            menu.caso_completar_missao()
             print("\n")
 
         case '7': 
-            retorno = menu.caso_converter_pontos(pontos_acumulados, creditos_acumulados)
-            pontos_acumulados = retorno[0]
-            creditos_acumulados = retorno[1]
+            menu.caso_converter_pontos()
+
             print("\n")
 
         case '0': break
