@@ -71,8 +71,8 @@ def caso_calcular_viagem() -> None:
 
     #Obtem a emissao na distancia descrita
     emissao = funcs.obter_emissao(veiculo) * float(km)
-
-    print(f"⋮ » ⌞ {veiculo} emitirá {emissao:.1f}KG de carbono em {km}KM ⌝")
+    
+    print(f"⋮ » ⌞ {veiculo} emitirá {emissao:.3f}KG de carbono em {km}KM ⌝")
     
     print("\n » Insira qualquer tecla para continuar.")
     input()
